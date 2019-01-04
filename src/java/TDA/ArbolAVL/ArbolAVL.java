@@ -8,7 +8,6 @@ package TDA.ArbolAVL;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Array;
 
 /**
  *
@@ -17,26 +16,27 @@ import java.lang.reflect.Array;
 public class ArbolAVL {
     private NodoAVL raiz;
     
-    public void insertar(int id){
+    public void insertar(String nick, String contraseña){
         if(raiz != null)
-            insertar(id, raiz);
+            insertar(nick, contraseña, raiz);
         else
-            raiz = new NodoAVL(id);
+            raiz = new NodoAVL(nick, contraseña);
     }
     
-    private void insertar(int id, NodoAVL tmp){
-        if(id < tmp.getId()){
+    private void insertar(String nick, String contraseña, NodoAVL tmp){
+        int comparacion = tmp.getNickName().compareTo(nick);
+        if(comparacion > 0){
             if(tmp.getIzquierda() != null)
-                insertar(id, tmp.getIzquierda());
+                insertar(nick, contraseña, tmp.getIzquierda());
             else{
-                tmp.setIzquierda(new NodoAVL(id, tmp));
+                tmp.setIzquierda(new NodoAVL(nick, contraseña, tmp));
                 balancear(tmp);
             }
-        }else if(id > tmp.getId()){
+        }else if(comparacion < 0){
             if(tmp.getDerecha()!= null)
-                insertar(id, tmp.getDerecha());
+                insertar(nick, contraseña, tmp.getDerecha());
             else{
-                tmp.setDerecha(new NodoAVL(id, tmp));
+                tmp.setDerecha(new NodoAVL(nick, contraseña, tmp));
                 balancear(tmp);
             }
         }
@@ -69,9 +69,7 @@ public class ArbolAVL {
     
     private NodoAVL rotacionDerecha(NodoAVL tmp){
         NodoAVL n1 = tmp.getIzquierda();
-        //NodoAVL n2 = n1.getDerecha();
         n1.setPadre(tmp.getPadre());
-        //n1.setDerecha(tmp);
         tmp.setIzquierda(n1.getDerecha());
         if(tmp.getIzquierda() != null)
             tmp.getIzquierda().setPadre(tmp);
@@ -142,18 +140,18 @@ public class ArbolAVL {
     
     private void contenido(NodoAVL tmp){
         if(tmp != null){
-            contenido += "nodo"+tmp.getId()+"[label = \"ID: "+tmp.getId()+" \\nFE: "+tmp.getFe()+" \\nH: "+tmp.getAltura()+"  \"]\n";
+            contenido += "nodo"+tmp.getNickName()+"[label = \"ID: "+tmp.getNickName()+" \\nFE: "+tmp.getFe()+" \\nH: "+tmp.getAltura()+"  \"]\n";
             if(tmp.getIzquierda() != null)
-                relaciones += "\"nodo"+tmp.getId()+"\"" + "->"+"\"nodo"+tmp.getIzquierda().getId()+"\"\n";
+                relaciones += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"nodo"+tmp.getIzquierda().getNickName()+"\"\n";
             else{
                 contenido += "null"+contadorNull+" [shape=point];\n";
-                relacionesNulos += "\"nodo"+tmp.getId()+"\"" + "->"+"\"null"+contadorNull+++"\"\n";
+                relacionesNulos += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"null"+contadorNull+++"\"\n";
             }
             if(tmp.getDerecha() != null)
-                relaciones += "\"nodo"+tmp.getId()+"\"" + "->"+"\"nodo"+tmp.getDerecha().getId()+"\"\n";
+                relaciones += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"nodo"+tmp.getDerecha().getNickName()+"\"\n";
             else{
                 nulos += "null"+contadorNull+" [shape=point];\n";
-                relacionesNulos += "\"nodo"+tmp.getId()+"\"" + "->"+"\"null"+contadorNull+++"\"\n";
+                relacionesNulos += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"null"+contadorNull+++"\"\n";
             }
             contenido(tmp.getIzquierda());
             contenido(tmp.getDerecha());
