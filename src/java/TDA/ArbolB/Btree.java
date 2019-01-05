@@ -6,43 +6,59 @@
 package TDA.ArbolB;
 
 import sistema.bean.Factura;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 
 /**
  *
  * @author crist
  */
 public class Btree {
-     
+         
     NodoBT raiz;//Nodo raiz
     int t;//Grado del arbol
     
-    public ArbolB(int t_){
+    //Dibujar
+    File archivo;
+    FileWriter fw;
+    BufferedWriter bw;
+    
+    public Btree(int t_){
         this.t=t_;
         this.raiz=null;
     }
-    void agregar(Factura f){
+    void add(Factura f){
         raiz=agregar(f,raiz);
+        System.out.println("___________+++_______________");
     }
     NodoBT agregar(Factura f, NodoBT tmp){
+        System.out.println("Ingresando: "+f.no);
         if(tmp==null){
+            System.out.println("Arbol vacio");
             //Se aloja el espacio en memoria para el nuevo nodo
             tmp= new NodoBT(t, null);
             //Se agrega el valor 
             tmp.agregar(f);
         }
         else{
+            System.out.println("Arbol no  vacio");
             //hoja
             if(tmp.punteros[0]==null){
+                System.out.println("No tiene hijos o punteros");
                 if(tmp.n<t-1){
+                    System.out.println("NO esta lleno");
                     tmp.agregar(f);
                 }
                 else{
+                    System.out.println("Esta lleno");
                     tmp.agregar(f);
-                    System.out.println("agregar f"+f.no);
                     
                     if(tmp.padre==null){
-                        
-                        NodoBT nuevo= new NodoBT(t, tmp);
+                        System.out.println("NO tiene padre");
+                        NodoBT nuevo= new NodoBT(t, null);
                         nuevo.agregar(tmp.facturas[t/2]);
                         
                         nuevo.punteros[0]= new NodoBT(t, nuevo);
@@ -57,131 +73,222 @@ public class Btree {
                         tmp=nuevo;
                     }
                     else{
+                        System.out.println("SI tiene padre");
                         System.out.println("Rompimiento recursivo");
-                        tmp=split(tmp);
+                        /*tmp=*/split(tmp);
                         
                     }
                 }
             }
             else{
+                System.out.println("Tiene hijos o punteros");
                 boolean mayor=true;
                 int i=0;
                 for(i=0; i <tmp.n;i++){
                     if(f.no<tmp.facturas[i].no){
+                        System.out.println("Puntero al que ingresa: "+tmp.punteros[i].facturas[0].no);
+                        System.out.println("Numero de veces de esto: "+i);
                         tmp.punteros[i]=agregar(f, tmp.punteros[i]);
-                        System.out.println("recursivo");
+                        
                         mayor=false;
+                        break;
                     }
                 }
                 if(mayor){
                     tmp.punteros[i]=agregar(f, tmp.punteros[i]);//??
-                    System.out.println("Recrsivoffg");
                 }
             }
         }
     return tmp;
     }
-    NodoBT split(NodoBT h) {
-        
-        h.padre.agregar(h.facturas[t/2]);
-        
-        NodoBT t1 = new NodoBT(h.t,h.padre);
-        
-        h.n = h.t/2;
-        
-        int r=0;
-        for (int j =h.t/2+1 ; j < h.t; j++)
-            t1.punteros[r] = h.punteros[j]; r++;
-        for (int j = h.t/2+2; j < h.t; j++)
-            t1.agregar(h.facturas[j]);
-        
-        for (int j = t/2; j < h.t; j++)
-            h.facturas[j] = null;
-        for (int j = t/2+1; j < h.t; j++)
-            h.punteros[j] = null;
-        
-        
-        int i=0;
-        //Encontrar el lugar de insercion en el padre
-        for(int k=0;k<h.padre.t-1;k++){
-            if(h.padre.facturas[k]!=null){
-                if(h.padre.facturas[k].equals(h.facturas[t/2])){
-                    i=k;
-                    System.out.println("i: "+i);
-                }
+    /*NodoBT*/void split(NodoBT h){
+        System.out.println("*///////////////////*");
+        if(h.padre.n<t-1){
+            System.out.println("EL padre no esta lleno");
+            System.out.println("Se agrega al padre: "+h.padre.facturas[0].no+"El valor medio"+h.facturas[t/2].no);
+            h.padre.agregar(h.facturas[t/2]);
+
+            System.out.println("Se crea el nodo para guardar la mitad del otro nodo");
+            NodoBT tmp1 = new NodoBT(h.t,h.padre);
+            
+            h.n = h.t/2;
+
+            //Dividir el contenido
+            for (int j = h.t/2+1; j < h.t; j++)
+                tmp1.agregar(h.facturas[j]);
+            
+            //Dividir los punteros
+            System.out.print("Se dividen los punteros: ");
+            if(h.punteros[0]==null){
+                System.out.println("No hay punteros que pasar");
             }
-        }
-        //Dezplazar los punteros hacia adelante para agregar la mitad del puntero hijo que se ha roto
-        int x=h.padre.n-1;
-        while(x>=0){
-            h.padre.punteros[x+1]=h.padre.punteros[x];
-            x--;
-        }
-        
-        //h.padre.punteros[i]=t1;
-        h.padre.punteros[i+1]=null;
-        h.padre.punteros[i+1]=t1;
-        
-        return h;    
-    }
-    
-    void romper(NodoBT hijo, NodoBT padre){/*
-        if(padre.n<t-1){
-            //Si el padre aun tiene espacio el valor se agrega
-            padre.agregar(hijo.facturas[t/2]);//Ya hemos subido el valor al padre
-            //Ahora falta componer los punteros y repartir el contenido del hijo en los punteros del padre
-            //Correr los punteros
-            //Lugar donde se inserto el nuevo elemento en el padre
+            else{
+                System.out.println("Pasando punteros");
+                int r=0;
+                for (int j =h.t/2+1 ; j < h.t; j++)
+                    tmp1.punteros[r] = h.punteros[j]; r++;
+            }
+            //Quitar los punteros demas en el nodo que se rompe
+            for (int j =h.t/2+1 ; j < h.t; j++){
+                h.facturas[j]=null;
+                h.punteros[j] = null;
+            }
+            
+            System.out.print("Se busca el lugar al que pertencera el nuevo puntero: ");
             int i=0;
-            //Encontrar el lugar de insercion en el padre
-            for(int h=0;h<padre.t-1;h++){
-                if(padre.facturas[h]!=null){
-                    if(padre.facturas[h].equals(hijo.facturas[t/2])){
-                        i=h;
-                        System.out.println("i: "+i);
-                    }
+            for(i=0; i <h.padre.n;i++){
+                if(h.facturas[t/2].no==h.padre.facturas[i].no){
+                    break;
                 }
             }
-            //Dezplazar los punteros hacia adelante para agregar la mitad del puntero hijo que se ha roto
-            int x=padre.n-1;
-            while(x>=0){
-                padre.punteros[x+1]=padre.punteros[x];
+            System.out.println(" i: "+i);
+                            
+            int x=h.padre.n-1;;
+            while(x>=0&&x>i){
+                h.padre.punteros[x+1]=h.padre.punteros[x];
                 x--;
             }
             
-            
-            Factura[] aux=new Factura[t];
-            for(int t=0; t<t;t++){
-                aux[t]=hijo.facturas[t];
-                hijo.facturas[t]=null;
-                padre.punteros[i+1].facturas[t]=null;
-            }
-            hijo.n=0;
-            
-            
-            for(int z=0;z<hijo.t/2;z++){
-                System.out.println("z: "+z);
-                hijo.agregar(aux[z]);
-            }
-            padre.punteros[i]=hijo;
-            
-            for(int n=hijo.t/2+1;n<t;n++){
-                padre.punteros[i+1].agregar(hijo.facturas[n]);
-            }
-            
-
+            h.padre.punteros[i+1]=tmp1;
             
         }else{
-            //Si el padre esta en su capacidad maxima se vuelve a romper
-            //Volver a romper
-        }*/
+            System.out.println("Rompimiento recursivo");
+            NodoBT aux2=h;
+            NodoBT aux=h.padre;
+            while(aux!=null&&!(aux.n<t-1)){
+                System.out.println("Padre disponible:"+h.padre.facturas[0].no);
+                aux2=aux;
+                aux=aux.padre;
+                System.out.println("Entro");
+            }
+            
+            if(aux!=null){
+                System.out.println("Necesaria nueva raiz");
+                h.padre.agregar(h.facturas[t/2]);
+                
+                        NodoBT nuevo= new NodoBT(t, null);
+                        nuevo.agregar(aux2.facturas[t/2]);
+
+                        nuevo.punteros[0]= new NodoBT(t, nuevo);
+                        nuevo.punteros[1]=new NodoBT(t, nuevo);
+
+                        for(int i=0; i<t/2;i++){
+                            nuevo.punteros[0].agregar(aux2.facturas[i]);
+                        }
+                        for(int j=(t/2)+1; j<t;j++){
+                            nuevo.punteros[1].agregar(aux2.facturas[j]);
+                        }
+                        
+                        nuevo.punteros[0].punteros[0]=h;
+                        h.padre=nuevo.punteros[0];
+                
+            }
+            else{
+                h.padre.agregar(h.facturas[t/2]);
+                System.out.println("Romper el padre con espacio");
+            }
+            
+        }
+        System.out.println("Final del split, se regresa el nodo solo con la mitad");
+        System.out.println("*///////////////////*");
+        //return h;
+    }
+    NodoBT nuevaRaiz(NodoBT tmp){
+        NodoBT nuevo= new NodoBT(t, null);
+        nuevo.agregar(tmp.facturas[t/2]);
+                        
+        nuevo.punteros[0]= new NodoBT(t, nuevo);
+        nuevo.punteros[1]=new NodoBT(t, nuevo);
+                        
+        for(int i=0; i<t/2;i++){
+            nuevo.punteros[0].agregar(tmp.facturas[i]);
+        }
+        for(int j=(t/2)+1; j<t;j++){
+            nuevo.punteros[1].agregar(tmp.facturas[j]);
+        }                        
+        return nuevo;
     }
     void mostrar(NodoBT tmp){
         if(tmp!=null){
             tmp.mostrar();
+
             for(int i=0; i<tmp.t;i++){
                 mostrar(tmp.punteros[i]);
             }
         }
+    }
+    void dibujar()
+    {
+        System.out.println("Dibujando");
+        
+            try{
+                archivo = new File("D:\\crist\\Documents\\NetBeansProjects\\arbolB\\Reportes\\ArbolB.txt");//Como crear una ruta relativa
+                fw = new FileWriter(archivo,true);
+                bw= new BufferedWriter(fw);
+                
+                bw.write("digraph arbolB{\n");
+                //contenido
+                //bw.write("rankdir=LR;\n");
+                bw.write("node[shape=record];\n");
+                
+                NodosRecursivoso(raiz);
+                EnlacesRecursivoso(raiz);
+
+                bw.write("\n}");
+                bw.close();
+                
+                try {
+                    //String comando= "dot -Tsvg D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.txt -o D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
+                    //Runtime.getRuntime().exec(comando);
+                    //String comando2="D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
+                    //Runtime.getRuntime().exec(comando2);
+                } 
+                catch (Exception e) {
+                    System.out.println("Error: "+e.toString());
+                }
+            }
+            catch(IOException e)
+            {
+                System.out.println("Error: "+e.toString());
+
+            }
+    }
+    void NodosRecursivoso(NodoBT tmp){
+        try{
+            if(tmp!=null){
+                bw.write("nodo"+tmp.facturas[0].no+"[label=\"");
+                for(int i=0; i<tmp.n;i++){
+                    if(i!=tmp.n-1){
+                      bw.write(tmp.facturas[i].no+"|");  
+                    }
+                    else{
+                      bw.write(tmp.facturas[i].no+"\"]\n");  
+                    }
+                    
+                }
+
+                for(int i=0; i<tmp.t;i++){
+                    NodosRecursivoso(tmp.punteros[i]);
+                }
+            }
+        }
+        catch(Exception e){
+            System.out.println("Error:"+e.toString());
+        }
+    }
+    void EnlacesRecursivoso(NodoBT tmp) throws IOException{
+        //try{
+            if(tmp!=null){
+
+                for(int i=0; i<tmp.t;i++){
+                    if(tmp.punteros[i]!=null)
+                        bw.write("nodo"+tmp.facturas[0].no+"->nodo"+tmp.punteros[i].facturas[0].no+"\n");
+                    EnlacesRecursivoso(tmp.punteros[i]);
+                }
+            }
+        //}
+        //catch(Exception e){
+            //System.out.println("Error: "+e.toString());
+        //}
     }
 }
