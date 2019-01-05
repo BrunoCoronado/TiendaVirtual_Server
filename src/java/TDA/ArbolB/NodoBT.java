@@ -12,6 +12,7 @@ import sistema.bean.Factura;
  * @author crist
  */
 public class NodoBT {
+ 
     Factura [] facturas;//Una lista de facturas
     int t;//Grado
     NodoBT [] punteros;//Una lista de punteros
@@ -25,10 +26,17 @@ public class NodoBT {
         this.punteros= new NodoBT[t_];
         this.padre=padre_;
     }
+    public NodoBT(int t_, NodoBT padre_, Factura[] f, NodoBT[] punteros){
+        this.t=t_;
+        this.n=0;
+        this.facturas= f;
+        this.punteros= punteros;
+        this.padre=padre_;
+    }
     void agregar(Factura f){
         
         facturas[n++]=f;
-        System.out.println("Numero de valores usados: "+n);
+        
         if(n>1){
             ordenar();
         }
@@ -36,7 +44,7 @@ public class NodoBT {
     void ordenar(){
         Factura aux;
         for(int i=0;  i<n-1;i++){
-            for(int j=0; j<n;j++){
+            for(int j=i; j<n;j++){
                 if(facturas[i].no>facturas[j].no){
                     aux=facturas[i];
                     facturas[i]=facturas[j];
@@ -50,6 +58,7 @@ public class NodoBT {
         for(int i=0; i<n;i++){
             System.out.print(facturas[i].no+" ");
         }
-        System.out.println("]");
+        System.out.print("]");
+        System.out.println("");
     }
 }
