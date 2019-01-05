@@ -20,8 +20,8 @@ public class ListaSimple {
         this.cabeza = cabeza;
     }
     
-    public void insertarAlInicio(String valor){
-        Nodo nuevo = new Nodo(valor);
+    public void insertarAlInicio(String valor, int envio, int facturacion){
+        Nodo nuevo = new Nodo(valor, envio, facturacion);
         if(cabeza != null){
             Nodo tmp = cabeza;
             cabeza = nuevo;

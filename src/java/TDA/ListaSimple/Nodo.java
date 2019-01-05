@@ -16,8 +16,10 @@ public class Nodo {
     private int envio;
     private int facturacion;
     
-    public Nodo(String direccion){
+    public Nodo(String direccion, int envio, int facturacion){
         this.direccion = direccion;
+        this.envio = envio;
+        this.facturacion = facturacion;
         siguiente = null;
     }
 

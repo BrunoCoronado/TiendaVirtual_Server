@@ -157,4 +157,100 @@ public class ArbolAVL {
             contenido(tmp.getDerecha());
         }   
     }
+    
+    public void insertarDireccion(String nick, String direccion, int envio, int facturacion){
+        if(raiz != null){
+            if(!raiz.getNickName().equals(nick))
+                insertarDireccion(nick, direccion, envio, facturacion, raiz);
+            else{
+                raiz.getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
+            }
+        }
+    }
+    
+    private void insertarDireccion(String nick, String direccion, int envio, int facturacion, NodoAVL tmp){
+        int comparacion = tmp.getNickName().compareTo(nick);
+        if(comparacion > 0){
+            if(tmp.getIzquierda() != null){
+                if(!tmp.getIzquierda().getNickName().equals(nick)){
+                    insertarDireccion(nick, direccion, envio, facturacion, tmp.getIzquierda());
+                }else{
+                    tmp.getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
+                }
+            }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
+        }else if(comparacion < 0){
+                if(tmp.getDerecha() != null){
+                    if(!tmp.getDerecha().getNickName().equals(nick)){
+                        insertarDireccion(nick, direccion, envio, facturacion, tmp.getDerecha());
+                    }else{
+                        tmp.getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
+                    }                    
+                }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
+        
+        }
+    }
+    
+    public void insertarCarrito(String nick, int cantidad, Object producto){
+        if(raiz != null){
+            if(!raiz.getNickName().equals(nick))
+                insertarCarrito(nick, cantidad, producto, raiz);
+            else{
+                raiz.getListaCarritoDeCompras().push(producto, cantidad);
+            }
+        }
+    }
+    
+    private void insertarCarrito(String nick, int cantidad, Object producto, NodoAVL tmp){
+        int comparacion = tmp.getNickName().compareTo(nick);
+        if(comparacion > 0){
+            if(tmp.getIzquierda() != null){
+                if(!tmp.getIzquierda().getNickName().equals(nick)){
+                    insertarCarrito(nick, cantidad, producto, tmp.getIzquierda());
+                }else{
+                    tmp.getListaCarritoDeCompras().push(producto, cantidad);
+                }
+            }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
+        }else if(comparacion < 0){
+                if(tmp.getDerecha() != null){
+                    if(!tmp.getDerecha().getNickName().equals(nick)){
+                        insertarCarrito(nick, cantidad, producto, tmp.getDerecha());
+                    }else{
+                        tmp.getListaCarritoDeCompras().push(producto, cantidad);
+                    }                    
+                }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
+        
+        }
+    }
+    
+    public void insertarPorComprar(String nick, int cantidad, Object producto){
+        if(raiz != null){
+            if(!raiz.getNickName().equals(nick))
+                insertarPorComprar(nick, cantidad, producto, raiz);
+            else{
+                raiz.getListaProductosPorComprar().push(producto, cantidad);
+            }
+        }
+    }
+    
+    private void insertarPorComprar(String nick, int cantidad, Object producto, NodoAVL tmp){
+        int comparacion = tmp.getNickName().compareTo(nick);
+        if(comparacion > 0){
+            if(tmp.getIzquierda() != null){
+                if(!tmp.getIzquierda().getNickName().equals(nick)){
+                    insertarPorComprar(nick, cantidad, producto, tmp.getIzquierda());
+                }else{
+                    tmp.getListaProductosPorComprar().push(producto, cantidad);
+                }
+            }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
+        }else if(comparacion < 0){
+                if(tmp.getDerecha() != null){
+                    if(!tmp.getDerecha().getNickName().equals(nick)){
+                        insertarPorComprar(nick, cantidad, producto, tmp.getDerecha());
+                    }else{
+                        tmp.getListaProductosPorComprar().push(producto, cantidad);
+                    }                    
+                }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
+        
+        }
+    }
 }

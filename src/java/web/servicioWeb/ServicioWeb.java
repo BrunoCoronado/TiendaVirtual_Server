@@ -5,6 +5,7 @@
  */
 package web.servicioWeb;
 
+import TDA.ArbolAVL.ArbolAVL;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -15,7 +16,7 @@ import javax.jws.WebParam;
  */
 @WebService(serviceName = "ServicioWeb")
 public class ServicioWeb {
-
+    public static ArbolAVL arbolAVL = new ArbolAVL();
     /**
      * This is a sample web service operation
      */
