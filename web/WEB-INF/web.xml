@@ -15,6 +15,14 @@
         <servlet-name>ReporteUsuariosServlet</servlet-name>
         <servlet-class>web.sistema.archivos.reportes.ReporteUsuariosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ReporteProductosServelt</servlet-name>
+        <servlet-class>web.sistema.archivos.reportes.ReporteProductosServelt</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReporteFacturasServlet</servlet-name>
+        <servlet-class>web.sistema.archivos.reportes.ReporteFacturasServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>usuariosServlet</servlet-name>
         <url-pattern>/usuariosServlet</url-pattern>
@@ -26,6 +34,14 @@
     <servlet-mapping>
         <servlet-name>ReporteUsuariosServlet</servlet-name>
         <url-pattern>/ReporteUsuariosServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReporteProductosServelt</servlet-name>
+        <url-pattern>/ReporteProductosServelt</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReporteFacturasServlet</servlet-name>
+        <url-pattern>/ReporteFacturasServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

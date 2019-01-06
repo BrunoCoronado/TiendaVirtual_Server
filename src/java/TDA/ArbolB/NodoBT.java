@@ -61,4 +61,7 @@ public class NodoBT {
         System.out.print("]");
         System.out.println("");
     }
+    NodoBT buscar(){
+        return null;
+    }
 }

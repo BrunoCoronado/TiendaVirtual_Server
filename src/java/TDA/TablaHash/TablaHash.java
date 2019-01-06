@@ -143,7 +143,7 @@ public class TablaHash {
             System.out.println("No se encuentra el elemento buscado");
         }
     }
-    Producto buscar(String codigo){
+    public Producto buscar(String codigo){
         Producto pd=null;
         
         int indice=fcHash(fcPlegamiento(codigo));

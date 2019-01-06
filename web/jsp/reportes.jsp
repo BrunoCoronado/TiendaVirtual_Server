@@ -49,26 +49,39 @@
                         </div>
                     </div>
                 </div>
+                
+                
+                
+                
+                
+                
                 <div class="col-sm-12 col-md-4 pt-4">
                     <div class="card border-primary">
                         <img class="card-img-top p-2" src="../assets/images/incidenteSalon.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Productos</h5>
                             <p class="card-text">Apartado para ver la estructura de productos.</p>
-                            <a href="#" class="btn btn-primary">Administrar</a>
+                            <a href="../ReporteProdutosServlet" class="btn btn-primary">Administrar</a>
                         </div>
                     </div>
                 </div>
+                
+                
                 <div class="col-sm-12 col-md-4 pt-4">
                     <div class="card border-primary">
                         <img class="card-img-top p-2" src="../assets/images/incidenteSalon.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Ventas</h5>
-                            <p class="card-text">Apartado para ver la estructura de ventas.</p>
-                            <a href="#" class="btn btn-primary">Administrar</a>
+                            <h5 class="card-title">Facturas</h5>
+                            <p class="card-text">Apartado para ver la estructura de facturas.</p>
+                            <a href="../ReporteFacturasServlet" class="btn btn-primary">Administrar</a>
                         </div>
                     </div>
                 </div>
+                
+       
+                
+                
+                
             </div>
         </div>
 

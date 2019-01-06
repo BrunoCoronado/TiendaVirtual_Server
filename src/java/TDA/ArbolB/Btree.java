@@ -217,7 +217,7 @@ public class Btree {
             }
         }
     }
-    void dibujar()
+    public void dibujar()
     {
         System.out.println("Dibujando");
         
@@ -290,5 +290,19 @@ public class Btree {
         //catch(Exception e){
             //System.out.println("Error: "+e.toString());
         //}
+    }
+    public Factura buscar(int facturaNo){
+        return buscar(facturaNo, raiz);
+    }
+    public Factura buscar(int facturaNo, NodoBT tmp){
+        if(tmp!=null){
+            tmp.mostrar();
+
+            for(int i=0; i<tmp.t;i++){
+                mostrar(tmp.punteros[i]);
+            }
+        }
+        
+        return null;
     }
 }
