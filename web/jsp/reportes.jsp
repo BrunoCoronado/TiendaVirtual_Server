@@ -41,7 +41,7 @@
             <div class="row">
                 <div class="col-sm-12 col-md-4 pt-4">
                     <div class="card border-primary">
-                        <img class="card-img-top p-2" src="../assets/images/salon.png" alt="Card image cap">
+                        <img class="card-img-top p-2" src="../assets/images/incidenteSalon.png" alt="Card image cap">
                         <div class="card-body">
                             <h5 class="card-title">Usuarios</h5>
                             <p class="card-text">Apartado para ver la estructura de usuarios.</p>
@@ -61,7 +61,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Productos</h5>
                             <p class="card-text">Apartado para ver la estructura de productos.</p>
-                            <a href="../ReporteProdutosServlet" class="btn btn-primary">Administrar</a>
+                            <a href="../ReporteProductosServelt" class="btn btn-primary">Generar</a>
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@
                         <div class="card-body">
                             <h5 class="card-title">Facturas</h5>
                             <p class="card-text">Apartado para ver la estructura de facturas.</p>
-                            <a href="../ReporteFacturasServlet" class="btn btn-primary">Administrar</a>
+                            <a href="../ReporteFacturasServlet" class="btn btn-primary">Generar</a>
                         </div>
                     </div>
                 </div>

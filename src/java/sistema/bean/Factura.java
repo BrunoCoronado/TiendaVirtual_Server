@@ -28,6 +28,9 @@ public class Factura {
         this.total=total_;
         //Apuntador usuario
         this.usuario_NodoAVL=web.servicioWeb.ServicioWeb.arbolAVL.buscar(usuario);
+        if(usuario_NodoAVL==null){
+            System.out.println("Se aniadio una factura pero no se encontro su usuario propietario");
+        }
         //Apuntador detalle
         this.detalle=null;
     }

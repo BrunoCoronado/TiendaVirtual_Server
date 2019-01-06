@@ -71,7 +71,12 @@ public class cargaArchivoServlet extends HttpServlet {
                     while(s.hasNext()){
                         contenido = s.next();
                         String[] datos = contenido.split(",");
-                        web.servicioWeb.ServicioWeb.arbolAVL.insertar(datos[0], datos[1]);
+                        try{
+                            System.out.println("Datos: "+datos[0]+","+datos[1]);
+                            web.servicioWeb.ServicioWeb.arbolAVL.insertar(datos[0], datos[1]);
+                        }catch(Exception e){
+                            System.out.println("Error: "+e.toString());
+                        }
                     }
                     break;
                 case "Direccion":
@@ -96,24 +101,33 @@ public class cargaArchivoServlet extends HttpServlet {
                     }
                     break;
                 case "Producto":
-                    while(s.hasNext()){
-                        contenido = s.next();
-                        String[] datos = contenido.split(",");
-                        web.servicioWeb.ServicioWeb.tablaHash.insertar(new Producto(datos[0], datos[1], datos[2], Integer.parseInt(datos[3]), datos[4]));
+                    try{
+                        while(s.hasNext()){
+                            contenido = s.next();
+                            String[] datos = contenido.split(",");
+                            try{
+                                web.servicioWeb.ServicioWeb.tablaHash.insertar(new Producto(datos[0], datos[1], datos[2], Integer.parseInt(datos[3]), datos[4]));
+                            }catch(Exception e){
+                                System.out.println("No se permiten espacios en los archivos de productos");
+                                continue;
+                            }
+                                
+                        }
+                    }catch(Exception e){
+                        System.out.println("Error: "+e.toString());
                     }
-                    web.servicioWeb.ServicioWeb.tablaHash.dibujar();
                     break;
-                case "Venta/Factura":
-                    /**
-                     * Archivo:
-                     * 78998,15-1-2019,4506,bruno16cca
-                     * 78554,17-1-2019,106,cristuan6cas
-                     */
+                case "Venta"://FACTURAS
                     while(s.hasNext()){
                         contenido = s.next();
                         String[] datos = contenido.split(",");
-                        web.servicioWeb.ServicioWeb.arbolB.add(new Factura(Integer.parseInt(datos[0]), datos[1], Integer.parseInt(datos[2]), datos[3]));/*El dato[3] puede ser int o string depediendo de como vas implementar la busqueda en el AVL*/
-                    }    /*NO hay apuntador al detalle porque es el detalle que debe traer indicado a que factura va aunado y en ese momento se agrega el detalle*/
+                        try{
+                            System.out.println(datos[0]+","+datos[1]+","+datos[1]+","+datos[2]+","+datos[3]);    
+                            web.servicioWeb.ServicioWeb.arbolB.add(new Factura(Integer.parseInt(datos[0]), datos[1], Integer.parseInt(datos[2]), datos[3]));
+                        }catch(NumberFormatException e){
+                            System.out.println("Error: "+e.toString());
+                        }
+                    }
                     break;
                 case "Detalle":
                 

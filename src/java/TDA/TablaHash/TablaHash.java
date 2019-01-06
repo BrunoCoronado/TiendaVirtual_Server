@@ -77,7 +77,7 @@ public class TablaHash {
         return clave;
     }
     int fcHash(int codigo){
-        int clave=codigo%23;
+        int clave=codigo%10;
         return clave;
     }
     public void insertar(Producto p){
@@ -100,14 +100,14 @@ public class TablaHash {
                     }
                     i++;
             }
-            if(i==100){System.out.println("Un valor no se inserto");}
+            if(i>=100){System.out.println("Un valor no se inserto");}
         }
         numElementos++;
         System.out.println("--------------------------");
         verificarRehash();
         System.out.println("--------------------------");
     }
-    void eliminar(String codigo){
+    public void eliminar(String codigo){
         int indice=fcHash(fcPlegamiento(codigo));
         int i=1;
         int nIndice=indice;
@@ -187,15 +187,17 @@ public class TablaHash {
         System.out.println("Porcentaje actual utilizado: "+porcentaje+" numE: "+numElementos);
         if(porcentaje>=0.8){
             System.out.println("Rehasing");
-            
+           
             Producto[] aux=productos;
             productos= new Producto[capacidad*2];
             int oldCapacidad=capacidad;
             capacidad=capacidad*2;
-            numElementos=0;
             
+            numElementos=0;
+
             for(int i=0;i<oldCapacidad;i++){
                 if(aux[i]!=null){
+                    System.out.println("i: "+i);
                     insertar(aux[i]);
                 }
             }
@@ -203,7 +205,7 @@ public class TablaHash {
         }
     }
     
-    void mostrar(){
+    public void mostrar(){
         //Contenido
         System.out.print("[");
         for(int i=0; i<capacidad;i++){
@@ -227,12 +229,11 @@ public class TablaHash {
         
             try{
                 archivo = new File("tablaHashProductos.txt");//Como crear una ruta relativa
-                fw = new FileWriter(archivo,true);
+                fw = new FileWriter(archivo,false);
                 bw= new BufferedWriter(fw);
                 
                 bw.write("digraph TablaHash{\n");
                 //contenido
-                //bw.write("rankdir=LR;\n");
                 bw.write("node[shape=record];\n");
                 for(int i=0; i<capacidad; i++){
                     //crear tabla
@@ -243,27 +244,30 @@ public class TablaHash {
                     bw.write("Tabla"+h+"->Tabla"+(h+1)+";\n");
                 }
                 bw.write("\n");
-                for(int j=0;j<capacidad;j++){
-                    //crear nodos
-                    if(productos[j]!=null){
-                        bw.write("nodo"+j+"[label=\"Codigo: "+productos[j].codigo+"\\n Nombre: "+productos[j].nombre+"\\n Marca: "+productos[j].marca+"\\n Precio: "+productos[j].precio+"\"];\n");
+                
+                
+                for(int i=0; i<capacidad;i++){
+                    if(productos[i]!=null){
+                        bw.write("nodo"+i+"[label=\"Codigo: "+productos[i].codigo+"\\n Nombre: "+productos[i].nombre+"\\n Marca: "+productos[i].marca+"\\n Precio: "+productos[i].precio+"\"];\n");
                     }
                 }
-                for(int k=0;k<capacidad;k++){
+               
+                for(int i=0;i<capacidad;i++){
                     //enlzar los nodos
-                    if(productos[k]!=null){
-                        bw.write("Tabla"+k+"->nodo"+k+";\n");
-                        bw.write("{rank=same;Tabla"+k+";nodo"+k+"}\n");
+                    if(productos[i]!=null){
+                        bw.write("Tabla"+i+"->nodo"+i+";\n");
+                        bw.write("{rank=same;Tabla"+i+";nodo"+i+"}\n");
                     }
                 }
+                
+                
+                
                 bw.write("\n}");
                 bw.close();
                 
                 try {
                     String comando= "dot -Tsvg tablaHashProductos.txt -o tablaHashProductos.svg";
                     Runtime.getRuntime().exec(comando);
-                    //String comando2="D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
-                    //Runtime.getRuntime().exec(comando2);
                     String [] cmd = {"cmd.exe", "/c", "start", "tablaHashProductos.svg" };
                     Runtime.getRuntime().exec(cmd);
                 } 

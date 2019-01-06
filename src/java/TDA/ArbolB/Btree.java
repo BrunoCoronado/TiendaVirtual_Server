@@ -222,8 +222,8 @@ public class Btree {
         System.out.println("Dibujando");
         
             try{
-                archivo = new File("D:\\crist\\Documents\\NetBeansProjects\\arbolB\\Reportes\\ArbolB.txt");//Como crear una ruta relativa
-                fw = new FileWriter(archivo,true);
+                archivo = new File("arbolBFacturas.txt");//Como crear una ruta relativa
+                fw = new FileWriter(archivo,false);
                 bw= new BufferedWriter(fw);
                 
                 bw.write("digraph arbolB{\n");
@@ -238,10 +238,12 @@ public class Btree {
                 bw.close();
                 
                 try {
-                    //String comando= "dot -Tsvg D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.txt -o D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
-                    //Runtime.getRuntime().exec(comando);
+                    String comando= "dot -Tsvg arbolBFacturas.txt -o arbolBFacturas.svg";
+                    Runtime.getRuntime().exec(comando);
                     //String comando2="D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
                     //Runtime.getRuntime().exec(comando2);
+                    String [] cmd = {"cmd.exe", "/c", "start", "arbolBFacturas.svg" };
+                    Runtime.getRuntime().exec(cmd);
                 } 
                 catch (Exception e) {
                     System.out.println("Error: "+e.toString());
@@ -259,10 +261,25 @@ public class Btree {
                 bw.write("nodo"+tmp.facturas[0].no+"[label=\"");
                 for(int i=0; i<tmp.n;i++){
                     if(i!=tmp.n-1){
-                      bw.write(tmp.facturas[i].no+"|");  
+                      bw.write("No. Fact: "+tmp.facturas[i].no+"\\n Fecha: "+tmp.facturas[i].fecha+"\\n Total: "+tmp.facturas[i].total+"\\n");
+                        try {
+                            bw.write("Compadror: "+tmp.facturas[i].usuario_NodoAVL.getNickName());
+                        } catch (Exception e) {
+                            System.out.println("No se pudo agregar el comprador");
+                            System.out.println("Error: "+e.toString());
+                        }
+                      bw.write("|");
+                        
                     }
                     else{
-                      bw.write(tmp.facturas[i].no+"\"]\n");  
+                      bw.write("No. Fact: "+tmp.facturas[i].no+"\\n Fecha: "+tmp.facturas[i].fecha+"\\n Total: "+tmp.facturas[i].total+"\\n ");
+                        try {
+                            bw.write("Compadror: "+tmp.facturas[i].usuario_NodoAVL.getNickName());
+                        } catch (Exception e) {
+                            System.out.println("No se pudo agregar el comprador");
+                            System.out.println("Error: "+e.toString());
+                        }
+                      bw.write("\"]\n");
                     }
                     
                 }
