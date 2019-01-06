@@ -267,4 +267,37 @@ public class ArbolAVL {
         
         }
     }
+    public NodoAVL buscar(String nick){
+        if(raiz != null){
+            if(!raiz.getNickName().equals(nick))
+                return buscar(nick, raiz);
+            else
+                return raiz;
+        }
+        return null;
+    }
+    
+    
+    private NodoAVL buscar(String nick, NodoAVL tmp){
+        int comparacion = tmp.getNickName().compareTo(nick);
+        if(comparacion > 0){
+            if(tmp.getIzquierda() != null){
+                if(!tmp.getIzquierda().getNickName().equals(nick)){
+                    buscar(nick, tmp.getIzquierda());
+                }else{
+                    return tmp.getIzquierda();
+                }
+            }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
+        }else if(comparacion < 0){
+                if(tmp.getDerecha() != null){
+                    if(!tmp.getDerecha().getNickName().equals(nick)){
+                        buscar(nick, tmp.getDerecha());
+                    }else{
+                        return tmp.getDerecha();
+                    }                    
+                }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
+        
+        }
+        return null;
+    }
 }

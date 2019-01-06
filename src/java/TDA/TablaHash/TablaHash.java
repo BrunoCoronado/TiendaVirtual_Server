@@ -80,7 +80,7 @@ public class TablaHash {
         int clave=codigo%23;
         return clave;
     }
-    void insertar(Producto p){
+    public void insertar(Producto p){
         int indice=fcHash(fcPlegamiento(p.codigo));
         int i=1;
         System.out.println("Funcion Hash: "+indice);
@@ -107,7 +107,7 @@ public class TablaHash {
         verificarRehash();
         System.out.println("--------------------------");
     }
-    void eliminar(String codigo){
+    public void eliminar(String codigo){
         int indice=fcHash(fcPlegamiento(codigo));
         int i=1;
         int nIndice=indice;

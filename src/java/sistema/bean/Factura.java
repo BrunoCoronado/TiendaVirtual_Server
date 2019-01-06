@@ -21,7 +21,7 @@ public class Factura {
     //Apuntador al detalle
     public Detalle detalle;
     
-    public Factura(int no_, String fecha_, int total_, int usuario)//Apuntadores
+    public Factura(int no_, String fecha_, int total_, String usuario)//Apuntadores
     {
         this.no=no_;
         this.fecha=fecha_;
