@@ -112,7 +112,7 @@ public class cargaArchivoServlet extends HttpServlet {
                     while(s.hasNext()){
                         contenido = s.next();
                         String[] datos = contenido.split(",");
-                        web.servicioWeb.ServicioWeb.arbolB.insertar(new Factura(Integer.parseInt(datos[0]), datos[1], Integer.parseInt(datos[2]), Integer.parseInt(datos[3]));/*El dato[3] puede ser int o string depediendo de como vas implementar la busqueda en el AVL*/
+                        web.servicioWeb.ServicioWeb.arbolB.add(new Factura(Integer.parseInt(datos[0]), datos[1], Integer.parseInt(datos[2]), datos[3]));/*El dato[3] puede ser int o string depediendo de como vas implementar la busqueda en el AVL*/
                     }    /*NO hay apuntador al detalle porque es el detalle que debe traer indicado a que factura va aunado y en ese momento se agrega el detalle*/
                     break;
                 case "Detalle":
@@ -147,6 +147,9 @@ public class cargaArchivoServlet extends HttpServlet {
                     else{
                         System.out.println("Detalle de una factura inexistente");
                     }
+                    
+                    
+                    
                     break;       
             }
         }catch(Exception ex){}

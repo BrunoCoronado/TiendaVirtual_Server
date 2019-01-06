@@ -30,7 +30,7 @@ public class Btree {
         this.t=t_;
         this.raiz=null;
     }
-    void add(Factura f){
+    public void add(Factura f){
         raiz=agregar(f,raiz);
         System.out.println("___________+++_______________");
     }
