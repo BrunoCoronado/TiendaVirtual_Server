@@ -80,7 +80,7 @@ public class TablaHash {
         int clave=codigo%23;
         return clave;
     }
-    public void insertar(Producto p){
+    void insertar(Producto p){
         int indice=fcHash(fcPlegamiento(p.codigo));
         int i=1;
         System.out.println("Funcion Hash: "+indice);
@@ -143,7 +143,7 @@ public class TablaHash {
             System.out.println("No se encuentra el elemento buscado");
         }
     }
-    public Producto buscar(String codigo){
+    Producto buscar(String codigo){
         Producto pd=null;
         
         int indice=fcHash(fcPlegamiento(codigo));
@@ -182,7 +182,6 @@ public class TablaHash {
         }
         return pd;
     }
-    
     void verificarRehash(){
         float porcentaje= (float)numElementos/capacidad;
         System.out.println("Porcentaje actual utilizado: "+porcentaje+" numE: "+numElementos);
