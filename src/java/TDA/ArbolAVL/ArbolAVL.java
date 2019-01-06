@@ -135,12 +135,14 @@ public class ArbolAVL {
             Runtime.getRuntime().exec("dot.exe -Tsvg AVL.txt -o AVL.svg");
             String [] cmd = {"cmd.exe", "/c", "start", "AVL.svg" };
             Runtime.getRuntime().exec(cmd);
-        }catch(IOException ex){}
+        }catch(IOException ex){
+            System.out.println("erroe");
+        }
     }
     
     private void contenido(NodoAVL tmp){
         if(tmp != null){
-            contenido += "nodo"+tmp.getNickName()+"[label = \"ID: "+tmp.getNickName()+" \\nFE: "+tmp.getFe()+" \\nH: "+tmp.getAltura()+"  \"]\n";
+            contenido += "nodo"+tmp.getNickName()+"[label = \""+tmp.getNickName()+" \\n"+tmp.getContraseña()+"\"]\n";
             if(tmp.getIzquierda() != null)
                 relaciones += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"nodo"+tmp.getIzquierda().getNickName()+"\"\n";
             else{
@@ -152,6 +154,18 @@ public class ArbolAVL {
             else{
                 nulos += "null"+contadorNull+" [shape=point];\n";
                 relacionesNulos += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"null"+contadorNull+++"\"\n";
+            }
+            if(tmp.getListaDirecciones()!=null){
+                contenido += tmp.getListaDirecciones().graficar(tmp.getNickName(), "nodo"+tmp.getNickName());
+                relaciones += "\nnodo"+tmp.getNickName()+" -> d0"+tmp.getNickName()+"[dir=none];";
+            }
+            if(tmp.getListaProductosPorComprar()!=null){
+                contenido += tmp.getListaProductosPorComprar().graficar(tmp.getNickName(), "nodo"+tmp.getNickName());
+                relaciones += "\nnodo"+tmp.getNickName()+" -> pp0"+tmp.getNickName()+"[dir=none];";
+            }
+            if(tmp.getListaCarritoDeCompras()!=null){
+                contenido += tmp.getListaCarritoDeCompras().graficar(tmp.getNickName(), "nodo"+tmp.getNickName());
+                relaciones += "\nnodo"+tmp.getNickName()+" -> cc0"+tmp.getNickName()+"[dir=none];";
             }
             contenido(tmp.getIzquierda());
             contenido(tmp.getDerecha());
@@ -175,7 +189,7 @@ public class ArbolAVL {
                 if(!tmp.getIzquierda().getNickName().equals(nick)){
                     insertarDireccion(nick, direccion, envio, facturacion, tmp.getIzquierda());
                 }else{
-                    tmp.getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
+                    tmp.getIzquierda().getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
                 }
             }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
         }else if(comparacion < 0){
@@ -183,7 +197,7 @@ public class ArbolAVL {
                     if(!tmp.getDerecha().getNickName().equals(nick)){
                         insertarDireccion(nick, direccion, envio, facturacion, tmp.getDerecha());
                     }else{
-                        tmp.getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
+                        tmp.getDerecha().getListaDirecciones().insertarAlInicio(direccion, envio, facturacion);
                     }                    
                 }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
         
@@ -207,7 +221,7 @@ public class ArbolAVL {
                 if(!tmp.getIzquierda().getNickName().equals(nick)){
                     insertarCarrito(nick, cantidad, producto, tmp.getIzquierda());
                 }else{
-                    tmp.getListaCarritoDeCompras().push(producto, cantidad);
+                    tmp.getIzquierda().getListaCarritoDeCompras().push(producto, cantidad);
                 }
             }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
         }else if(comparacion < 0){
@@ -215,7 +229,7 @@ public class ArbolAVL {
                     if(!tmp.getDerecha().getNickName().equals(nick)){
                         insertarCarrito(nick, cantidad, producto, tmp.getDerecha());
                     }else{
-                        tmp.getListaCarritoDeCompras().push(producto, cantidad);
+                        tmp.getDerecha().getListaCarritoDeCompras().push(producto, cantidad);
                     }                    
                 }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
         
@@ -239,7 +253,7 @@ public class ArbolAVL {
                 if(!tmp.getIzquierda().getNickName().equals(nick)){
                     insertarPorComprar(nick, cantidad, producto, tmp.getIzquierda());
                 }else{
-                    tmp.getListaProductosPorComprar().push(producto, cantidad);
+                    tmp.getIzquierda().getListaProductosPorComprar().push(producto, cantidad);
                 }
             }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n");*/}
         }else if(comparacion < 0){
@@ -247,7 +261,7 @@ public class ArbolAVL {
                     if(!tmp.getDerecha().getNickName().equals(nick)){
                         insertarPorComprar(nick, cantidad, producto, tmp.getDerecha());
                     }else{
-                        tmp.getListaProductosPorComprar().push(producto, cantidad);
+                        tmp.getIzquierda().getListaProductosPorComprar().push(producto, cantidad);
                     }                    
                 }else{/*sistema.ui.VentanaConfiguracion.txtLog.append("!!!Imposible Modificar Tropa - No Encontrada!!!!\n")*/;}
         

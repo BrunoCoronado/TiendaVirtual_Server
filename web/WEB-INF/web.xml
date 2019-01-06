@@ -7,9 +7,25 @@
         <servlet-name>usuariosServlet</servlet-name>
         <servlet-class>web.sistema.usuarios.usuariosServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>cargaArchivoServlet</servlet-name>
+        <servlet-class>web.sistema.archivos.cargaArchivoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReporteUsuariosServlet</servlet-name>
+        <servlet-class>web.sistema.archivos.reportes.ReporteUsuariosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>usuariosServlet</servlet-name>
         <url-pattern>/usuariosServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>cargaArchivoServlet</servlet-name>
+        <url-pattern>/cargaArchivoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReporteUsuariosServlet</servlet-name>
+        <url-pattern>/ReporteUsuariosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -5,6 +5,8 @@
  */
 package TDA.ColaPP;
 
+import sistema.bean.Producto;
+
 /**
  *
  * @author bruno
@@ -38,5 +40,28 @@ public class ColaPP {
         if(cabeza!=null)
             return cabeza.getProducto();
         return null;
+    }
+    
+    public String graficar(String nickUsuario, String nodoConexion){
+        String codigoGrafico = "";    
+        String conexiones = "";
+        int i = 0;
+        Producto p = null;
+        if(cabeza != null){
+            p = (Producto)cabeza.getProducto();
+            codigoGrafico += "subgraph clusterCPP"+nickUsuario+" {\nnode[shape=record];";
+            codigoGrafico += "\npp"+i+""+nickUsuario+"[label=\"{<n>|<data> "+p.nombre+"\\n"+p.codigo+"\\n"+p.precio+"|<next>}\"];\n";
+            i++;
+            NodoPP tmp = cabeza.getSiguiente();
+            while(tmp != null){
+                p = (Producto)tmp.getProducto();
+                codigoGrafico += "pp"+i+""+nickUsuario+"[label=\"{<n>|<data> "+p.nombre+"\\n"+p.codigo+"\\n"+p.precio+"|<next>}\"];\n";
+                conexiones += "pp"+(i-1)+""+nickUsuario+":next -> pp"+i+""+nickUsuario+":n;\n";
+                i++;
+                tmp = tmp.getSiguiente();
+            }
+            return codigoGrafico+conexiones+"}\n";
+        }
+        return "";
     }
 }

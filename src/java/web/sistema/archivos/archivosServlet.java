@@ -20,7 +20,7 @@ import javax.servlet.http.Part;
  *
  * @author bruno
  */
-@WebServlet("/CargarArchivo.do")
+@WebServlet(name = "archivosServlet", urlPatterns = {"/archivosServlet"})
 @MultipartConfig
 public class archivosServlet extends HttpServlet {
 
@@ -104,9 +104,9 @@ public class archivosServlet extends HttpServlet {
             case "Venta":
                 break;
             case "Detalle":
-                break;
-                
+                break;       
         }
+        request.getRequestDispatcher("../index.jsp").forward(request, response);
     }
 
     /**

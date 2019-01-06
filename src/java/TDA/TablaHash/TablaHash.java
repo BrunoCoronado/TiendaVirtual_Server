@@ -80,7 +80,7 @@ public class TablaHash {
         int clave=codigo%23;
         return clave;
     }
-    void insertar(Producto p){
+    public void insertar(Producto p){
         int indice=fcHash(fcPlegamiento(p.codigo));
         int i=1;
         System.out.println("Funcion Hash: "+indice);
@@ -143,7 +143,7 @@ public class TablaHash {
             System.out.println("No se encuentra el elemento buscado");
         }
     }
-    Producto buscar(String codigo){
+    public Producto buscar(String codigo){
         Producto pd=null;
         
         int indice=fcHash(fcPlegamiento(codigo));
@@ -182,6 +182,7 @@ public class TablaHash {
         }
         return pd;
     }
+    
     void verificarRehash(){
         float porcentaje= (float)numElementos/capacidad;
         System.out.println("Porcentaje actual utilizado: "+porcentaje+" numE: "+numElementos);
@@ -221,12 +222,12 @@ public class TablaHash {
         }
         System.out.println("]");
     }
-    void dibujar()
+    public void dibujar()
     {
         System.out.println("Dibujando");
         
             try{
-                archivo = new File("D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.txt");//Como crear una ruta relativa
+                archivo = new File("tablaHashProductos.txt");//Como crear una ruta relativa
                 fw = new FileWriter(archivo,true);
                 bw= new BufferedWriter(fw);
                 
@@ -260,10 +261,12 @@ public class TablaHash {
                 bw.close();
                 
                 try {
-                    String comando= "dot -Tsvg D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.txt -o D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
+                    String comando= "dot -Tsvg tablaHashProductos.txt -o tablaHashProductos.svg";
                     Runtime.getRuntime().exec(comando);
                     //String comando2="D:\\crist\\Documents\\NetBeansProjects\\TablaHash\\Reportes\\tablaHashProductos.svg";
                     //Runtime.getRuntime().exec(comando2);
+                    String [] cmd = {"cmd.exe", "/c", "start", "tablaHashProductos.svg" };
+                    Runtime.getRuntime().exec(cmd);
                 } 
                 catch (Exception e) {
                     System.out.println("Error: "+e.toString());

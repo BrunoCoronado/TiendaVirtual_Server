@@ -6,6 +6,7 @@
 package web.servicioWeb;
 
 import TDA.ArbolAVL.ArbolAVL;
+import TDA.TablaHash.TablaHash;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -17,6 +18,7 @@ import javax.jws.WebParam;
 @WebService(serviceName = "ServicioWeb")
 public class ServicioWeb {
     public static ArbolAVL arbolAVL = new ArbolAVL();
+    public static TablaHash tablaHash = new TablaHash(10);
     /**
      * This is a sample web service operation
      */

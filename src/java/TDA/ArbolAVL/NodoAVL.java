@@ -69,12 +69,18 @@ public class NodoAVL {
     public NodoAVL(String nickName, String contraseña) {
         this.nickName = nickName;
         this.contraseña = contraseña;
+        this.listaDirecciones = new ListaSimple();
+        this.listaCarritoDeCompras = new ColaCC();
+        this.listaProductosPorComprar = new ColaPP();
     }
 
     public NodoAVL(String nickName, String contraseña, NodoAVL padre) {
         this.nickName = nickName;
         this.contraseña = contraseña;
         this.padre = padre;
+        this.listaDirecciones = new ListaSimple();
+        this.listaCarritoDeCompras = new ColaCC();
+        this.listaProductosPorComprar = new ColaPP();
     }
 
     public int getFe() {

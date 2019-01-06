@@ -1,6 +1,6 @@
 <%-- 
-    Document   : cargaArchivos
-    Created on : 4/01/2019, 10:01:35 PM
+    Document   : reportes
+    Created on : 5/01/2019, 06:38:23 PM
     Author     : bruno
 --%>
 
@@ -36,26 +36,36 @@
         </nav>
         <div class="container">
             <div class="row pt-4">
-                <h1 class="text-center">Menu</h1>
+                <h1 class="text-center">Reportes</h1>
             </div>
             <div class="row">
                 <div class="col-sm-12 col-md-4 pt-4">
                     <div class="card border-primary">
-                        <img class="card-img-top p-2" src="assets/images/salon.png" alt="Card image cap">
+                        <img class="card-img-top p-2" src="../assets/images/salon.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Carga de Archivos</h5>
-                            <p class="card-text">Apartado para la carga de distintos archivos.</p>
-                            <a href="jsp/cargaArchivos.jsp" class="btn btn-primary">Administrar</a>
+                            <h5 class="card-title">Usuarios</h5>
+                            <p class="card-text">Apartado para ver la estructura de usuarios.</p>
+                            <a href="../ReporteUsuariosServlet" class="btn btn-primary">Generar</a>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-4 pt-4">
                     <div class="card border-primary">
-                        <img class="card-img-top p-2" src="assets/images/incidenteSalon.png" alt="Card image cap">
+                        <img class="card-img-top p-2" src="../assets/images/incidenteSalon.png" alt="Card image cap">
                         <div class="card-body">
-                            <h5 class="card-title">Reportes</h5>
-                            <p class="card-text">Reportes del contenido de las distintas estructuras</p>
-                            <a href="jsp/reportes.jsp" class="btn btn-primary">Administrar</a>
+                            <h5 class="card-title">Productos</h5>
+                            <p class="card-text">Apartado para ver la estructura de productos.</p>
+                            <a href="#" class="btn btn-primary">Administrar</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-4 pt-4">
+                    <div class="card border-primary">
+                        <img class="card-img-top p-2" src="../assets/images/incidenteSalon.png" alt="Card image cap">
+                        <div class="card-body">
+                            <h5 class="card-title">Ventas</h5>
+                            <p class="card-text">Apartado para ver la estructura de ventas.</p>
+                            <a href="#" class="btn btn-primary">Administrar</a>
                         </div>
                     </div>
                 </div>

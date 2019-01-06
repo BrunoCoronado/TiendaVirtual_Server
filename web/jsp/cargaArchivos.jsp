@@ -3,7 +3,6 @@
     Created on : 4/01/2019, 10:01:35 PM
     Author     : bruno
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -34,7 +33,7 @@
         </nav>
         <div class="container">
             <h1 class="text-center">Carga Masiva</h1>
-            <form action="CargarArchivo.do" method="post" enctype="multipart/form-data">
+            <form action="../cargaArchivoServlet" method="post" enctype="multipart/form-data">
                 <div class="row">
                     <div class="col">
                         <div class="container">
@@ -60,7 +59,7 @@
                             </div>
                             <div class="col-sm-12 col-md-12">
                                 <div class="form-group">
-                                    <input type="button"  value="Subir" class="btn btn-primary btn-block">
+                                    <input type="submit"  value="Subir" class="btn btn-primary btn-block">
                                 </div>
                             </div>
                         </div>
