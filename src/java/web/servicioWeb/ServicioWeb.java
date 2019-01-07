@@ -6,6 +6,7 @@
 package web.servicioWeb;
 
 import TDA.ArbolAVL.ArbolAVL;
+import TDA.ArbolAVL.NodoAVL;
 import TDA.ArbolB.Btree;
 import TDA.TablaHash.TablaHash;
 import javax.jws.WebService;
@@ -27,5 +28,26 @@ public class ServicioWeb {
     @WebMethod(operationName = "hello")
     public String hello(@WebParam(name = "name") String txt) {
         return "Hello " + txt + " !";
+    }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "login")
+    public boolean login(@WebParam(name = "nickname") String nickname, @WebParam(name = "contra") String contra) {
+        //TODO write your implementation code here:
+        boolean r= false;
+        NodoAVL aux=web.servicioWeb.ServicioWeb.arbolAVL.buscar(nickname);
+        
+        if(aux!=null){
+            if(contra.equals(aux.getContraseña())){
+                r=true;
+            }else{
+                r=false;
+            }
+        }else{
+            r=false;
+        }
+        return r;
     }
 }

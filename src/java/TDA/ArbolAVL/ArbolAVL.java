@@ -142,7 +142,7 @@ public class ArbolAVL {
     
     private void contenido(NodoAVL tmp){
         if(tmp != null){
-            contenido += "nodo"+tmp.getNickName()+"[label = \"Nick: "+tmp.getNickName()+" \\n Contraseña: "+tmp.getContraseña()+"\"]\n";
+            contenido += "nodo"+tmp.getNickName()+"[label = \"Nick: "+tmp.getNickName()+" \\n Contra: "+tmp.getContraseña()+"\"]\n";
             if(tmp.getIzquierda() != null)
                 relaciones += "\"nodo"+tmp.getNickName()+"\"" + "->"+"\"nodo"+tmp.getIzquierda().getNickName()+"\"\n";
             else{
